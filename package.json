@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon Backend/Server.js",
-    "start": "nodemon Backend/Server.js",
+    "start": "node Backend/Server.js",
     "build": "npm install && npm install --prefix contactmanager && npm run build --prefix contactmanager"
   },
   "keywords": [],
