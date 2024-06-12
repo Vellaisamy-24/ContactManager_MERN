@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const DetailedView = () => {
   const params = useParams();
@@ -14,7 +14,7 @@ const DetailedView = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-
+  const navigate = useNavigate();
   const fetchDetailById = async () => {
     try {
       const response = await axios.get(
@@ -52,11 +52,31 @@ const DetailedView = () => {
         }
       );
       console.log(response);
-      fetchDetailById()
-      setTimeout(()=>
-    {
-        toast.success("Updated")
-    },300)
+      fetchDetailById();
+      setTimeout(() => {
+        toast.success("Updated");
+      }, 300);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteUser = async (e) => {
+    try {
+      e.preventDefault();
+      const response = await axios.delete(
+        `http://localhost:5000/api/data/deleteData/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${AuthToken}`,
+          },
+        }
+      );
+      console.log(response.data.message)
+      setTimeout(() => {
+        toast.success("Deleted");
+        navigate("/contacts");
+      },500);
+       
     } catch (error) {
       console.log(error);
     }
@@ -108,6 +128,9 @@ const DetailedView = () => {
         />
       </div>
       <button type="submit">Update</button>
+      <button onClick={(e) => deleteUser(e)} type="button">
+        Delete
+      </button>
     </form>
   );
 };

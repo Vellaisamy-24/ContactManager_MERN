@@ -5,7 +5,8 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Contacts from "./components/Contacts";
 import DetailedView from "./components/DetailedView";
-import  {Toaster}  from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import AddContact from "./components/AddContact";
 const App = () => {
   return (
     <div>
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/contacts/:id" element={<DetailedView />} />
+          <Route path="/addContacts/" element={<AddContact />} />
         </Routes>
       </Router>
     </div>

@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const DataModel = require("../model/dataModel");
 exports.createData = async (req, res) => {
   try {
-    //console.log(req.user.id)
+    console.log(req.user.id);
+    console.log(req.body);
     const { email, mobileNo, firstName, lastName } = req.body;
     const createData = await DataModel.create({
       user: req.user.id,

@@ -7,7 +7,7 @@ const Contacts = () => {
   const AuthToken = localStorage.getItem("token");
   useEffect(() => {
     fetchContacts();
-  }, [AuthToken]);
+  }, []);
   const [contact, setContact] = useState([]);
   const fetchContacts = async () => {
     try {
@@ -37,30 +37,34 @@ const Contacts = () => {
               </h1>
             </>
           ))} */}
-
+<Link to="/addContacts">AddContact</Link>
         <div className="">
-          {contact.map((data) => (
-            <Link to={`/contacts/${data._id}`}>
-              <div className="py-5 flex items-center">
-                <div>
-                  <IoIosContact className="h-10 w-20" />
-                </div>
-                <div>
-                  <div className="flex  gap-4 ">
-                    <h1>FirstName:{data.firstName}</h1>
-                    <p>Last Name:{data.lastName}</p>
+          {contact.length>0 ? (
+            contact.map((data) => (
+              <Link to={`/contacts/${data._id}`}>
+                <div className="py-5 flex items-center">
+                  <div>
+                    <IoIosContact className="h-10 w-20" />
                   </div>
+                  <div>
+                    <div className="flex  gap-4 ">
+                      <h1>FirstName:{data.firstName}</h1>
+                      <p>Last Name:{data.lastName}</p>
+                    </div>
 
-                  <div className="flex items-center gap-2">
-                    <span>
-                      <FaMobileRetro />
-                    </span>
-                    <p>{data.mobileNo}</p>
+                    <div className="flex items-center gap-2">
+                      <span>
+                        <FaMobileRetro />
+                      </span>
+                      <p>{data.mobileNo}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))
+          ) : (
+            <p className="font-bold text-orange-500 text-xl   text-center p-10 flex items-center justify-center min-h-screen">No contacts</p>
+          )}
         </div>
       </section>
     </div>
