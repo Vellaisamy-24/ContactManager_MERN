@@ -1,6 +1,7 @@
 const User = require("../model/userModel");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const DataModel = require("../model/dataModel");
 exports.signUp = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -60,3 +61,33 @@ exports.signIn = async (req, res) => {
     });
   }
 };
+exports.deleteData=async(req,res)=>
+    {
+        try
+        {
+            const id=req.params.id;
+            const exitsId=await DataModel.findOne({_id:id})
+            if(!exitsId)
+                {
+                    return res.json({
+                        success:false,
+                        message:"data id not exits"
+                    })
+                }
+                const deleteData=await DataModel.findByIdAndDelete(id)
+                return res.json({
+                    success:true,
+                    message:"Data deleted succesfully",
+                    deleteData
+                })
+
+
+        }
+        catch(error)
+        {
+            return res.json({
+                success:false,
+                message:error.message
+            })
+        }
+    }
