@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 const schema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.ObjectId,
+    required: true,
+    ref: "user",
+  },
   mobileNo: {
     type: Number,
   },

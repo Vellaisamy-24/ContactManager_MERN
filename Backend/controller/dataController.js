@@ -2,8 +2,10 @@ const mongoose = require("mongoose");
 const DataModel = require("../model/dataModel");
 exports.createData = async (req, res) => {
   try {
+    //console.log(req.user.id)
     const { email, mobileNo, firstName, lastName } = req.body;
     const createData = await DataModel.create({
+      user: req.user.id,
       email,
       mobileNo,
       firstName,
@@ -31,6 +33,12 @@ exports.deleteData = async (req, res) => {
         message: "data id not exits",
       });
     }
+    if (req.user.id !== exitsId.user.toString()) {
+      return res.json({
+        success: false,
+        message: "Not authenticated",
+      });
+    }
     const deleteData = await DataModel.findByIdAndDelete(id);
     return res.json({
       success: true,
@@ -54,6 +62,13 @@ exports.updateData = async (req, res) => {
       return res.json({
         success: false,
         message: "data id not exits for update",
+      });
+    }
+    console.log(existId);
+    if (req.user.id !== existId.user.toString()) {
+      return res.json({
+        success: false,
+        message: "User not authenticated",
       });
     }
     const updateData = await DataModel.findByIdAndUpdate(
