@@ -97,3 +97,20 @@ exports.updateData = async (req, res) => {
     });
   }
 };
+
+exports.getData = async (req, res) => {
+  try {
+    console.log(req.user.id + "id from token");
+    const userData = await DataModel.find({ user: req.user.id });
+    return res.json({
+      success: true,
+      message: "Data fetched with userid",
+      userData,
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
