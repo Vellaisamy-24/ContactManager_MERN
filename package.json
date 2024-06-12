@@ -1,7 +1,6 @@
 {
   "name": "contactmanager_mern",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon Backend/Server.js",
@@ -18,5 +17,7 @@
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.1",
     "nodemon": "^3.1.3"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
