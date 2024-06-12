@@ -105,7 +105,38 @@ exports.getData = async (req, res) => {
     return res.json({
       success: true,
       message: "Data fetched with userid",
-      userData,
+      user: userData,
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+exports.singleUserById = async (req, res) => {
+  try {
+    console.log(req.user.id + "user token id");
+    console.log(req.params.id + "paramsid");
+    const id = req.params.id;
+    const singleUser = await DataModel.findById(id);
+    if (!singleUser) {
+      return res.json({
+        success: false,
+        message: "single user by id not exits",
+      });
+    }
+    // if (req.user.id !== singleUser.user.toString()) {
+    //   return res.json({
+    //     success: false,
+    //     message: "user not aunthenticated",
+    //   });
+    // }
+
+    return res.json({
+      success: true,
+      message: "get user single by id success",
+      singleUser,
     });
   } catch (error) {
     return res.json({
