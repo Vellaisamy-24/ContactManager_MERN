@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon Backend/Server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon Backend/Server.js",
+    "build": "npm install && npm install --prefix contactmanager && npm run build --prefix contactmanager"
   },
   "keywords": [],
   "author": "",
