@@ -10,10 +10,9 @@ app.listen(process.env.PORT, (req, res) => {
   console.log(`Server is listening to the port ${process.env.PORT}`);
 });
 const userRoute = require("./route/userRoute");
+const dataRoute = require("./route/dataRoute");
 mongoose
-  .connect(
-    process.env.MONGODB_URI
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("DB connected");
   })
@@ -21,3 +20,4 @@ mongoose
     console.log("Db not connected" + error);
   });
 app.use("/api/user", userRoute);
+app.use("/api/data", dataRoute);
