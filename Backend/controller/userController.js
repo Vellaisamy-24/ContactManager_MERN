@@ -21,9 +21,35 @@ exports.signUp = async (req, res) => {
   } catch (error) {}
 };
 
-exports.signIn = (req, res) => {
+exports.signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
+    if (!email || !password) {
+      return res.json({
+        success: false,
+        message: "please fill all fields",
+      });
+    }
+    const userExits = await User.findOne({ email });
+    if (!userExits) {
+      return res.json({
+        success: false,
+        message: "User not exists",
+      });
+    }
+    const validPassword = bcryptjs.compare(password, userExits.password);
+    if (!validPassword) {
+      return res.json({
+        success: false,
+        message: "Invalid Password",
+      });
+    }
+    const { password: pass, ...rest } = userExits._doc;
+    return res.json({
+      success: true,
+      message: "User sigin success",
+      user: rest,
+    });
   } catch (error) {
     return res.json({
       success: false,
